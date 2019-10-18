@@ -25,7 +25,7 @@ void createNode(char *organization, char *name, char *email){
 	node1->name = name;
 	node1->email = email;
 	node1->next = NULL;
-	//printf("organization added: %s\nname: %s\nemail: %s\n", node1->organization, node1->name, node1->email);
+	printf("organization added: %s\nname: %s\nemail: %s\n", node1->organization, node1->name, node1->email);
 	int key = generateHash(node1->organization);
 	//printf("key %d\n", key);
 	if(hashArray[key] != 0){
@@ -52,7 +52,7 @@ void deleteNode(char *organization, char *name){
 	if(hashArray[index]->next == NULL){
 		free(hashArray[index]);
 		hashArray[index] = 0;
-		//printf("solo node deleted\n");
+		printf("solo node deleted\n");
 	}
 	else{
 		node *tempCurrent = hashArray[index];
@@ -62,7 +62,7 @@ void deleteNode(char *organization, char *name){
 			if(tempCurrent->name == name){
 				if(tempCurrent->next == NULL){
 					free(tempCurrent);
-					//printf("linked node deleted\n");
+					printf("linked node deleted\n");
 					break;
 				}
 				else{
@@ -74,7 +74,7 @@ void deleteNode(char *organization, char *name){
 						tempPrevious->next = tempCurrent->next;
 						free(tempCurrent);
 					}
-					//printf("linked node deleted\n");
+					printf("linked node deleted\n");
 					break;
 				}
 			}
@@ -121,12 +121,17 @@ void readFile(char *organization, char *name, char *email){
 int main(int argc, char *argv[]){
 	(void)argc;
 	//printf("%s, %s, %s, %d\n", argv[1], argv[2], argv[3], argc);
-	//printf("the progam stores nodes in a hash table\n");
-	createNode(argv[1], argv[2], argv[3]);
+	printf("the progam stores nodes in a hash table\n");
+	if(strcmp(argv[1], "create") == 0){
+		createNode(argv[2], argv[3], argv[4]);
+	}
+	if(strcmp(argv[1], "remove") == 0){
+		deleteNode(argv[2], argv[3]);
+	}
 	//createNode("company", "john", "john@gmail.com");
-	deleteNode(argv[1], argv[2]);
+	//deleteNode(argv[1], argv[2]);
 	//deleteNode("company", "john");
-	writeFile(argv[1], argv[2], argv[3]);
+	//writeFile(argv[1], argv[2], argv[3]);
 	//readFile("company", "joe", "joe@gmail.com");
 
 	return 0;
